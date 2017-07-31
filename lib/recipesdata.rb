@@ -5,8 +5,8 @@ module RecipesData
           "ingredients": [
               {
                   "quantity": "1",
-                  "name": " beef roast",
-                  "type": "Meat"
+                  "name": "beef roast",
+                  "type": "meat"
               },
               {
                   "quantity": "1 package",
@@ -563,4 +563,6 @@ module RecipesData
           "originalURL": "http://www.chatelaine.com/recipe/stovetop-cooking-method/curried-chicken-salad/"
       }
   ]
+
+
 end

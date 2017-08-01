@@ -17,14 +17,6 @@ recipes.each do |recipe|
   end
 end
 
-# def get_ings
-#   recipes.each do |recipe|
-#     recipe[:ingredients].collect do |ing|
-#      ing[:name]
-#     end
-#   end
-# end
-
 all_ingredients = []
 recipes.each do |recipe|
   recipe[:ingredients].each {|ingredient| all_ingredients << ingredient[:name]}
@@ -34,8 +26,17 @@ all_ingredients.uniq!
 
 all_ingredients.each do |ing|
   Ingredient.create(name: ing)
+  ## FIND OR CREATE BY?!
 end
 
+
+# def get_ings
+#   recipes.each do |recipe|
+#     recipe[:ingredients].collect do |ing|
+#      ing[:name]
+#     end
+#   end
+# end
 
 # uniq_recipe_array = []
 # recipes.each do |recipe|

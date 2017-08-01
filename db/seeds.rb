@@ -4,7 +4,8 @@ RecipeIngredient.delete_all
 require_relative '../lib/recipesdata.rb'
 require_relative '../lib/recipe.rb'
 require 'pry'
-recipes = RecipesData::RECIPES
+
+
 
 recipes.each do |recipe|
   this_recipe_ingredients = []

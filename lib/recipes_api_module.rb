@@ -13,40 +13,38 @@ module RecipesAPI
     recipes = JSON.parse(file)
 
     recipes.each do |r|
-      # binding.pry
       directions = r["directions"].join(", ")
       recipe = Recipe.create(title: r["title"], directions: directions, category: r["categories"])
       r["ingredients"].each do |i|
         recipe.ingredients.create(name: i)
       end
-#       recipe = Recipe.create(name: specific_recipe[:title], steps: specific_recipe[:directions].join(", "))
-#       recipe.ingredients.create(name: specific_recipe[:ingredients])
+
     end
-    # binding.pry
   end
 
 
-
-#   def create_recipe_ingredients_db
-#     recipes.each do |specific_recipe|
-#       recipe = Recipe.create(name: specific_recipe[:title], steps: specific_recipe[:directions].join(", "))
-#       recipe.ingredients.create(name: specific_recipe[:ingredients])
-#     end
-#   end
-
-#     # sole responsibility is to get recipe data from API and put it in format we want.
-
-#     def input_info(input_ingredients)
-#       # Takes input information
-#           # ingredients
-#       ## take in user input about ingredients
-#       ## Call on ingredient class and check that ingredients exist
-#       ## Find by / select specified ingredients
-#       split_ingredients = input_ingredients.split(", ")
-#       split_ingredients.each do |specific_ingredient|
-#         Recipe.all.ingredient.find_by(specific_ingredient)
-#       end
-#     end
+    def self.input_info(input_ingredients)
+      # Takes input information
+          # ingredients
+      ## take in user input about ingredients
+      ## Call on ingredient class and check that ingredients exist
+      ## Find by / select specified ingredients
+      split_ingredients = input_ingredients.split(", ")
+      # relevant_recipes =
+        matches = []
+      split_ingredients.each do |specific_ingredient|
+        # we want find the recipes that contain EACH specific ingredient
+        Recipe.all.each do |this_recipe|
+          i = this_recipe.ingredients.where("name LIKE ?", "%#{specific_ingredient}%")
+            i.each do |ingredient|
+              ingredient.recipes.each do |matched_recipe|
+                matches << matched_recipe.title
+              end
+          end
+        end
+        puts matches
+      end
+    end
 
 
 #     def recipe_preference(input_preferences)

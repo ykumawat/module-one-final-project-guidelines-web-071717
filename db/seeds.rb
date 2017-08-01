@@ -1,34 +1,34 @@
 Recipe.delete_all
 Ingredient.delete_all
 RecipeIngredient.delete_all
-require_relative '../lib/recipesdata.rb'
 require_relative '../lib/recipe.rb'
 require 'pry'
 
 
+RecipesAPI::Adapter.read_json
 
-recipes.each do |recipe|
-  this_recipe_ingredients = []
-  recipe[:ingredients].each do |ingredient|
-    this_recipe_ingredients << ingredient[:name]
-  end
-  recipe = Recipe.create(name: recipe[:name], steps: recipe[:steps].join(" "), url: recipe[:originalURL])
-  this_recipe_ingredients.each do |ing_name|
-    recipe.ingredients.create(name: ing_name)
-  end
-end
+# recipes.each do |recipe|
+#   this_recipe_ingredients = []
+#   recipe[:ingredients].each do |ingredient|
+#     this_recipe_ingredients << ingredient[:name]
+#   end
+#   recipe = Recipe.create(name: recipe[:name], steps: recipe[:steps].join(" "), url: recipe[:originalURL])
+#   this_recipe_ingredients.each do |ing_name|
+#     recipe.ingredients.create(name: ing_name)
+#   end
+# end
 
-all_ingredients = []
-recipes.each do |recipe|
-  recipe[:ingredients].each {|ingredient| all_ingredients << ingredient[:name]}
-end
+# all_ingredients = []
+# recipes.each do |recipe|
+#   recipe[:ingredients].each {|ingredient| all_ingredients << ingredient[:name]}
+# end
 
-all_ingredients.uniq!
+# all_ingredients.uniq!
 
-all_ingredients.each do |ing|
-  Ingredient.create(name: ing)
-  ## FIND OR CREATE BY?!
-end
+# all_ingredients.each do |ing|
+#   Ingredient.create(name: ing)
+#   ## FIND OR CREATE BY?!
+# end
 
 
 # def get_ings

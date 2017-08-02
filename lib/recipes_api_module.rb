@@ -18,7 +18,6 @@ module RecipesAPI
       r["ingredients"].each do |i|
         recipe.ingredients.create(name: i)
       end
-
     end
   end
 
@@ -30,23 +29,23 @@ module RecipesAPI
   end
 
 
-    def self.input_info(input_ingredients)
-      # Takes input information
-          # ingredients
-      ## take in user input about ingredients
-      ## Call on ingredient class and check that ingredients exist
-      ## Find by / select specified ingredients
-      split_ingredients = input_ingredients.split(", ")
-      # relevant_recipes =
-        matches = []
-      split_ingredients.each do |specific_ingredient|
-        # we want find the recipes that contain EACH specific ingredient
-        Recipe.all.each do |this_recipe|
-          i = this_recipe.ingredients.where("name LIKE ?", "%#{specific_ingredient}%")
-            i.each do |ingredient|
-              ingredient.recipes.each do |matched_recipe|
-                matches << matched_recipe.title
-              end
+  def self.input_info(input_ingredients)
+    # Takes input information
+        # ingredients
+    ## take in user input about ingredients
+    ## Call on ingredient class and check that ingredients exist
+    ## Find by / select specified ingredients
+    split_ingredients = input_ingredients.split(", ")
+    # relevant_recipes =
+    matches = []
+    split_ingredients.each do |specific_ingredient|
+      # we want find the recipes that contain EACH specific ingredient
+      Recipe.all.each do |this_recipe|
+        i = this_recipe.ingredients.where("name LIKE ?", "%#{specific_ingredient}%")
+          i.each do |ingredient|
+            ingredient.recipes.each do |matched_recipe|
+              matches << matched_recipe.title
+            end
           end
         end
         puts matches

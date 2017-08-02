@@ -52,13 +52,8 @@ def self.food_ingredient_pref(food_input, ingredient_input) ## DONT FORGET SELF.
       end
 
     ingredient_preference_recipes
-
 ####BELOW IS CLI---COMMUNICATE W USER
-  puts ingredient_preference_recipes.first.title
-  puts "\n"
-  ingredient_preference_recipes.first.ingredients.map {|ingredient| puts ingredient.name}
-  puts "\n"
-  puts ingredient_preference_recipes.first.directions
+
 end
 
   end
@@ -172,5 +167,3 @@ end
 # all_ingredients.each do |ing|
 #   Ingredient.create(name: ing)
 #   ## FIND OR CREATE BY?!
-
-

@@ -5,4 +5,3 @@ ActiveRecord::Base.logger = nil
 new_cli = CommandLineInterface.new
 new_cli.greet
 new_cli.food_ingredient_selections
-new_cli.satisfied

@@ -29,6 +29,61 @@ module RecipesAPI
   end
 
 
+def self.food_ingredient_pref(food_input, ingredient_input) ## DONT FORGET SELF.
+  preference_recipes = []
+      Recipe.all.each do |this_recipe|
+       if this_recipe.category.include?("#{food_input}")
+        preference_recipes << this_recipe
+      end
+    end
+
+  ingredient_preference_recipes = []
+
+      preference_recipes.each do |this_recipe|
+      i = this_recipe.ingredients.where("name LIKE ?", "%#{ingredient_input}%")
+          i.each do |ingredient|
+            ingredient.recipes.each do |matched_recipe|
+              ingredient_preference_recipes << matched_recipe
+            end
+          end
+        end
+  puts ingredient_preference_recipes.first.title
+  puts "\n"
+  ingredient_preference_recipes.first.ingredients.map {|ingredient| puts ingredient.name}
+  puts "\n"
+  puts ingredient_preference_recipes.first.directions
+end
+
+# def food_pref(input)
+#   preference_recipes = []
+#       Recipe.all.each do |this_recipe|
+#        if this_recipe.category.include?("#{input}")
+#         preference_recipes << this_recipe
+#       end
+#     end
+#   preference_recipes
+#   ingredient_pref(preference_recipes)
+# end
+
+
+# def ingredient_pref(input)
+#   ingredient_preference_recipes = []
+#   ingredient_picked = gets.chomp
+#       Recipe.all.each do |this_recipe|
+#       i = this_recipe.ingredients.where("name LIKE ?", "%#{ingredient_picked}%")
+#           i.each do |ingredient|
+#             ingredient.recipes.each do |matched_recipe|
+#               ingredient_preference_recipes << matched_recipe.title
+#             end
+#           end
+#         end
+#   ingredient_preference_recipes
+# end
+
+
+
+
+
   def self.input_info(input_ingredients)
     # Takes input information
         # ingredients
@@ -40,6 +95,7 @@ module RecipesAPI
     matches = []
     split_ingredients.each do |specific_ingredient|
       # we want find the recipes that contain EACH specific ingredient
+      # IF recipe contains preference in category, collect
       Recipe.all.each do |this_recipe|
         i = this_recipe.ingredients.where("name LIKE ?", "%#{specific_ingredient}%")
           i.each do |ingredient|
@@ -53,15 +109,16 @@ module RecipesAPI
     end
 
 
-#     def recipe_preference(input_preferences)
-#       ## ingredients, preference, cuisince
-#       # Filters recipes to meet preferences + cuisine matches
-#           # preference/cuisine => include only recipes w that tag/description
-#       # Filters ingredients for those that match exclude allergies
-#           # shellfish => exclude shellfish tags
-#           # peanuts => include only 'peanut free'
-#           # gluten => include only 'gluten free'
-#     end
+
+    # def recipe_preference(input_preferences)
+      ## ingredients, preference, cuisine
+      # Filters recipes to meet preferences + cuisine matches
+          # preference/cuisine => include only recipes w that tag/description
+      # Filters ingredients for those that match exclude allergies
+          # shellfish => exclude shellfish tags
+          # peanuts => include only 'peanut free'
+          # gluten => include only 'gluten free'
+    # end
 
 
 #     def filter_recipes

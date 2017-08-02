@@ -18,31 +18,32 @@ class CommandLineInterface
     puts "Please select one of the following: "
     puts "\n 1. Vegetarian \n 2. Vegan \n 3. Peanut Free \n 4. Gluten-Free \n 5. Random"
     selection = gets.chomp
-    case selection
-    when "1"
-      selection = "Vegetarian"
-      puts "How nice! You selected Vegetarian \n"
-    when "2"
-      selection = "Vegan"
-      puts "You selected Vegan, yummy! \n"
-    when "3"
-      selection = "Peanut Free"
-      puts "You selected Peanut Free, don't worry--we won't kill you. \n"
-    when "4"
-      selection = "Gluten-Free"
-      puts "Gluten-Free, yum! \n"
-    # when "5"
-    #   selection = "Random"
-    #   puts "Here's your randomly selected recipe. Enjoy!"
-    #   RecipesAPI::Adapter.random_recipe
+    if selection != "5"
+      case selection
+      when "1"
+        selection = "Vegetarian"
+       puts "How nice! You selected Vegetarian \n"
+      when "2"
+        selection = "Vegan"
+        puts "You selected Vegan, yummy! \n"
+      when "3"
+        selection = "Peanut Free"
+        puts "You selected Peanut Free, don't worry--we won't kill you. \n"
+      when "4"
+        selection = "Gluten-Free"
+        puts "Gluten-Free, yum! \n"
+      end
+
+      puts "Would you like to include any ONE specific ingredient? Please type below:"
+      puts "Examples: ginger, asparagus, lentil, chicken, etc."
+      selection2 = gets.chomp
+
+      RecipesAPI::Adapter.food_ingredient_pref(selection, selection2)
+    else
+      RecipesAPI::Adapter.random_recipe
     end
+  end
 
-  puts "Would you like to include any ONE specific ingredient? Please type below:"
-  puts "Examples: ginger, asparagus, lentil, chicken, etc."
-  selection2 = gets.chomp
-
-  RecipesAPI::Adapter.food_ingredient_pref(selection, selection2)
-end
 end
 
 

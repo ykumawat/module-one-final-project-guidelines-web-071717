@@ -25,12 +25,7 @@ module RecipesAPI
   def self.random_recipe
     random_recipes = Recipe.where(id: Recipe.pluck(:id).sample(5))
     random_recipes.each_with_index do |rec, idx|
-      puts "#{idx + 1}. #{rec[:title]}"
-      puts ""
-      puts rec[:directions]
-      puts rec[:category]
-      puts ""
-      puts ""
+      puts "#{idx + 1}. #{rec[:title]}\n\nDirections: #{rec[:directions]}\n\nRecipe Tags: #{rec[:category]}\n\n"
     end
   end
 

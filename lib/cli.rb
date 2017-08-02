@@ -16,15 +16,21 @@ class CommandLineInterface
     puts "Please enter a minimum of three ingredients, separated by a comma. If you would like to get a random recipe, type 'Random'."
     puts ""
     input = gets.chomp.downcase
-    if input == "random"
-      puts "You selected random!"
-      puts "Here is your randomized recipe: "
-      #method for random recipe
-      RecipesAPI::Adapter.random_recipe
-    else
+    while input
+      if input != "random" && input.split(", ").length < 3
+        puts "Please enter at least three ingredients."
+        input = gets.chomp.downcase
+      elsif input == "random"
+        puts "You selected random!"
+        puts "Here is your randomized recipe: "
+        #method for random recipe
+        RecipesAPI::Adapter.random_recipe
+        break
+      else
         #single responsibility
         #create method that will find ingredient in ingredient table and return result/results if there is a match
         RecipesAPI::Adapter.input_info(input)
+      end
     end
   end
 

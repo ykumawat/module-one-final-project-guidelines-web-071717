@@ -1,10 +1,5 @@
 class CommandLineInterface
 
-  ####### UNIQ CATEGORIES SUGGESTIONS?! Categories.uniq.rand(10) or something?
-  def initialize
-    @@return_recipes = []
-  end
-
   def greet
     puts ""
     puts ""
@@ -12,8 +7,6 @@ class CommandLineInterface
     puts "Simply enter what ingredients you have in your kitchen."
     puts ""
   end
-
-
 
   def food_ingredient_selections #with examples
     puts "Do you have any food preferences that we can help accomodate?"
@@ -74,7 +67,7 @@ class CommandLineInterface
       puts recipe.directions
       puts "------------------------------------------------------------"
       puts "============================================================"
-      break if satisfied == true || recipes.length == 0 #adding the second part of or statement to get rid of error message
+      break if satisfied == true || recipes.length == 0
     end
     game_over
   end
@@ -91,7 +84,7 @@ class CommandLineInterface
   end
 
   def game_over
-    puts "Welp. Too bad. All out of recipes ...¯|_(ツ)_/¯"
+    puts "Okay! No more ...¯|_(ツ)_/¯"
   end
 
 end

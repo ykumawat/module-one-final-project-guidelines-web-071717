@@ -6,7 +6,7 @@ class CommandLineInterface
   end
 
   def greet
-    puts "What's Cookin'?"
+    puts ""
     puts ""
     puts "Welcome to the fastest solution for your cooking needs!"
     puts "Simply enter what ingredients you have in your kitchen."
@@ -64,30 +64,34 @@ class CommandLineInterface
       recipe = recipes.shift
       puts "\n"
       puts "\n"
+      puts "------------------------------------------------------------"
       puts recipe.title
-      puts "\n"
+      puts "------------------------------------------------------------"
+      puts "Ingredients:"
       recipe.ingredients.map {|ingredient| puts ingredient.name}
+      puts "------------------------------------------------------------"
       puts "\n"
       puts recipe.directions
-    # some code here
-      break if satisfied == true || recipes.length == 0
+      puts "------------------------------------------------------------"
+      puts "============================================================"
+      break if satisfied == true || recipes.length == 0 #adding the second part of or statement to get rid of error message
     end
+    game_over
   end
 
   def satisfied#run return values as arg so we can use it!
     puts "Are you happy with your recipe selection? Type yes or no."
     selection = gets.chomp
     if selection == 'yes'
-      puts "Enjoy your meal! Thanks for using What's Cookin?"
+      puts "Enjoy your meal! Thanks for using What's Cooking?!"
       true
     else
       false
-      game_over
     end
   end
 
   def game_over
-    puts "Welp. Too bad."
+    puts "Welp. Too bad. All out of recipes ...¯|_(ツ)_/¯"
   end
 
 end

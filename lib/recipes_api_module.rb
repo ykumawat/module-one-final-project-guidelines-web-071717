@@ -24,34 +24,44 @@ module RecipesAPI
   def self.random_recipe
     random_recipes = Recipe.where(id: Recipe.pluck(:id).sample(5))
     random_recipes.each_with_index do |rec, idx|
-      puts "#{idx + 1}. #{rec[:title]}\n\nDirections: #{rec[:directions]}\n\nRecipe Tags: #{rec[:category]}\n\n"
+      puts "#{idx + 1}. #{rec[:title]}\n\nDirections: #{rec[:directions]}\n\n"
+      rec_ings = rec.ingredients.map{|ingredient| ingredient.name}
+      puts "#{rec_ings}"
+      puts ""
     end
   end
 
 
 def self.food_ingredient_pref(food_input, ingredient_input) ## DONT FORGET SELF.
-  preference_recipes = []
+    preference_recipes = []
       Recipe.all.each do |this_recipe|
        if this_recipe.category.include?("#{food_input}")
         preference_recipes << this_recipe
       end
     end
 
-  ingredient_preference_recipes = []
+      ingredient_preference_recipes = [] ### RETURN THIS ARRAY TO BE USED FOR SAMPLE
 
-      preference_recipes.each do |this_recipe|
-      i = this_recipe.ingredients.where("name LIKE ?", "%#{ingredient_input}%")
-          i.each do |ingredient|
-            ingredient.recipes.each do |matched_recipe|
-              ingredient_preference_recipes << matched_recipe
-            end
+    preference_recipes.each do |this_recipe|
+    i = this_recipe.ingredients.where("name LIKE ?", "%#{ingredient_input}%")
+        i.each do |ingredient|
+          ingredient.recipes.each do |matched_recipe|
+            ingredient_preference_recipes << matched_recipe
           end
         end
+      end
+
+    ingredient_preference_recipes
+
+####BELOW IS CLI---COMMUNICATE W USER
   puts ingredient_preference_recipes.first.title
   puts "\n"
   ingredient_preference_recipes.first.ingredients.map {|ingredient| puts ingredient.name}
   puts "\n"
   puts ingredient_preference_recipes.first.directions
+end
+
+  end
 end
 
 # def food_pref(input)
@@ -84,29 +94,29 @@ end
 
 
 
-  def self.input_info(input_ingredients)
-    # Takes input information
-        # ingredients
-    ## take in user input about ingredients
-    ## Call on ingredient class and check that ingredients exist
-    ## Find by / select specified ingredients
-    split_ingredients = input_ingredients.split(", ")
-    # relevant_recipes =
-    matches = []
-    split_ingredients.each do |specific_ingredient|
-      # we want find the recipes that contain EACH specific ingredient
-      # IF recipe contains preference in category, collect
-      Recipe.all.each do |this_recipe|
-        i = this_recipe.ingredients.where("name LIKE ?", "%#{specific_ingredient}%")
-          i.each do |ingredient|
-            ingredient.recipes.each do |matched_recipe|
-              matches << matched_recipe.title
-            end
-          end
-        end
-        puts matches
-      end
-    end
+  # def self.input_info(input_ingredients)
+  #   # Takes input information
+  #       # ingredients
+  #   ## take in user input about ingredients
+  #   ## Call on ingredient class and check that ingredients exist
+  #   ## Find by / select specified ingredients
+  #   split_ingredients = input_ingredients.split(", ")
+  #   # relevant_recipes =
+  #   matches = []
+  #   split_ingredients.each do |specific_ingredient|
+  #     # we want find the recipes that contain EACH specific ingredient
+  #     # IF recipe contains preference in category, collect
+  #     Recipe.all.each do |this_recipe|
+  #       i = this_recipe.ingredients.where("name LIKE ?", "%#{specific_ingredient}%")
+  #         i.each do |ingredient|
+  #           ingredient.recipes.each do |matched_recipe|
+  #             matches << matched_recipe.title
+  #           end
+  #         end
+  #       end
+  #       puts matches
+  #     end
+  #   end
 
 
 
@@ -163,5 +173,4 @@ end
 #   Ingredient.create(name: ing)
 #   ## FIND OR CREATE BY?!
 
-  end
-end
+

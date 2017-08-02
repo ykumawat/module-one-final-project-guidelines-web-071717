@@ -38,15 +38,26 @@ class CommandLineInterface
       puts "Examples: ginger, asparagus, lentil, chicken, etc."
       selection2 = gets.chomp
 
-      RecipesAPI::Adapter.food_ingredient_pref(selection, selection2)
+###NOW OUR RETURN VALUE IS USABLE W VARIABLE return_recipes
+     return_recipes =  RecipesAPI::Adapter.food_ingredient_pref(selection, selection2)
     else
       RecipesAPI::Adapter.random_recipe
     end
   end
 
+
+def satisfied(return_recipes) #run return values as arg so we can use it!
+  return_recipes.sample #### this will return a random recipe sample
+  puts "Are you happy with your recipe selection? Type yes or no."
+  selection = gets.chomp
+  if selection == 'yes'
+    puts "Enjoy your meal! Thanks for using What's Cookin?"
+  else
+    food_ingredient_selections
+  end
 end
 
-
+end
   # def ingredient_pref
   #   # Asks user for cuisine preferences
   #   # Stores cuisine preferences somewhere

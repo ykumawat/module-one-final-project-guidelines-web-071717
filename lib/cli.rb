@@ -17,10 +17,10 @@ class CommandLineInterface
     puts ""
     input = gets.chomp.downcase
     if input == "random"
-      #call on recipe table for random generation
       puts "You selected random!"
       puts "Here is your randomized recipe: "
       #method for random recipe
+      RecipesAPI::Adapter.random_recipe
     else
         #single responsibility
         #create method that will find ingredient in ingredient table and return result/results if there is a match

@@ -22,6 +22,18 @@ module RecipesAPI
     end
   end
 
+  def self.random_recipe
+    random_recipes = Recipe.where(id: Recipe.pluck(:id).sample(5))
+    random_recipes.each_with_index do |rec, idx|
+      puts "#{idx + 1}. #{rec[:title]}"
+      puts ""
+      puts rec[:directions]
+      puts rec[:category]
+      puts ""
+      puts ""
+    end
+  end
+
 
     def self.input_info(input_ingredients)
       # Takes input information
@@ -102,5 +114,3 @@ module RecipesAPI
 
   end
 end
-
-

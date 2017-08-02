@@ -17,7 +17,7 @@ class CommandLineInterface
     puts ""
     input = gets.chomp.downcase
     while input
-      if input.split(", ").length < 3
+      if input != "random" && input.split(", ").length < 3
         puts "Please enter at least three ingredients."
         input = gets.chomp.downcase
       elsif input == "random"
@@ -25,6 +25,7 @@ class CommandLineInterface
         puts "Here is your randomized recipe: "
         #method for random recipe
         RecipesAPI::Adapter.random_recipe
+        break
       else
         #single responsibility
         #create method that will find ingredient in ingredient table and return result/results if there is a match

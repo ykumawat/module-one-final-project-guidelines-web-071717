@@ -30,12 +30,12 @@ class CommandLineInterface
     options = Recipe.all_categories.uniq!.flatten!
     puts "Enter your food preferences (like 'vegan' or 'lunch') so we can find you a recipe."
     puts "  - If you have no preference, enter 'Random' - "
-    selection = gets.chomp.capitalize!
+    selection = gets.chomp.capitalize
     # binding.pry
 
-    while (selection != "Random" && selection.downcase != "random") && !options.include?(selection)
+    while selection != "Random" && !options.include?(selection)
       puts "Please enter something valid!"
-      selection = gets.chomp.capitalize!
+      selection = gets.chomp.capitalize
     end
 
     puts "Yum!!! you selected #{selection}."

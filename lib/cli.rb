@@ -3,46 +3,65 @@ class CommandLineInterface
   def greet
     puts ""
     puts ""
-    puts "Welcome to the fastest solution for your cooking needs!"
-    puts "Simply enter what ingredients you have in your kitchen."
+    puts "
+                                           ~               OOOO8
+                                         :OO              OO   O
+               .                      .   OO  ..7..      8O.   8  . ?.     ...
+       . ...  O8.            8    OO8OOO8  O. 8O  O      OO       8O.8O.   8OOO  OO+...
+    OOOO .OO   O     7O88   .OO   O ?OO 8.O?  O.  O      OO.     OO. :OZ  OO  O7 .8O8  88.8OOO.
+     OO?  OO.  8 8OO. 8O8   .O8   O .OO  .    OO         OO.    .OO   O8 O8   OO. OO. OI  .O8. 8O   8OZ    .
+      OO  OO8..O  :O8. OO.  .OO8.    O8       OOOO       OO     .OO.  O8 O8   OO. O8.8.   8O8  8O.  OO   O8OO8..
+      =OO ?8O+ O  .OO  OO    IO8 .   8O        8OO8      8O      OO.  O8 O8   OO  O8O     OO   OOO  O  ~OO    +.
+       8O  .8O.O  .OOOO8O     .OO    OO          OO=     OO      OO  ZO8 OO  .8O .OOOO    OO   OOO  O  OO.   :
+        OO. I88O   OO+ 8OO  ? .OO .  OO.         .OO     OO     .OO. OO: O8  OO: OO O8   .8O  8=OOO O $O8
+        OO.: OO8    OO .OO  O?  8O   8O.      O. .O7      OO  .. OO. 8O  OO  OO. 8O OOO  $OO  O..OOO. OO.  .
+         OOO  O8.   OO. OO  O  .OOZ  8O8      O8~88       .O8O8O..O88O.  +O +O.  8O  O8  OO   O .OOO  OO. OOO
+         =8O. 8O.   OO  8O7.8O .OOO. O~..                                 .OO   OOOO OOO:8O  +O  8OO. 8O   O8
+         .OO  .8   7OO8 $O....                                                      .    :OOZOO   O.  O8  88.
+           O                                                                                      ~    O  OO
+                                                                                                       .Z88?
+"
+    puts "Welcome to the fastest solution for finding the recipe of your dreams!"
     puts ""
   end
 
   def food_ingredient_selections #with examples
-    puts "Do you have any food preferences that we can help accomodate?"
-    puts "Please select one of the following: "
-    puts "\n 1. Vegetarian \n 2. Vegan \n 3. Peanut Free \n 4. Gluten-Free \n 5. Random"
-    selection = gets.chomp
-    if selection != "5"
-      case selection
-      when "1"
-        selection = "Vegetarian"
-       puts "How nice! You selected Vegetarian \n"
-      when "2"
-        selection = "Vegan"
-        puts "You selected Vegan, yummy! \n"
-      when "3"
-        selection = "Peanut Free"
-        puts "You selected Peanut Free, don't worry--we won't kill you. \n"
-      when "4"
-        selection = "Gluten-Free"
-        puts "Gluten-Free, yum! \n"
-      end
 
-      puts "Would you like to include any ONE specific ingredient? Please type below:"
-      puts "Examples: ginger, asparagus, lentil, chicken, etc."
-      selection2 = gets.chomp
+    options = Recipe.all_categories.uniq!.flatten!
+    puts "Enter your food preferences (like 'vegan' or 'lunch') so we can find you a recipe."
+    puts "  - If you have no preference, enter 'Random' - "
+    selection = gets.chomp.capitalize!
+    # binding.pry
 
-###NOW OUR RETURN VALUE IS USABLE W VARIABLE return_recipes
+    while (selection != "Random" && selection.downcase != "random") && !options.include?(selection)
+      puts "Please enter something valid!"
+      selection = gets.chomp.capitalize!
+    end
 
-     recipes =  RecipesAPI::Adapter.food_ingredient_pref(selection, selection2)
-     if !recipes.empty?
-       next_page(recipes)
-     else
-       game_over
-     end
-    else
+    puts "Yum!!! you selected #{selection}."
+    puts ""
+    if selection == 'Random'
       RecipesAPI::Adapter.random_recipe
+    else
+      puts "Add any ONE specific ingredient that you'd like."
+      puts " - Add things like: 'ginger', 'asparagus', 'lentil', 'chicken', etc. \n"
+      selection2 = gets.chomp
+      recipes =  RecipesAPI::Adapter.food_ingredient_pref(selection, selection2)
+      if !recipes.empty?
+        next_page(recipes)
+      else
+        game_over
+      end
+    end
+  end
+
+  def selection_valid(input)
+    Recipe.all.each do |recipe|
+      if recipe.category.include?(input)
+        true
+      else
+        false
+      end
     end
   end
 
@@ -58,14 +77,18 @@ class CommandLineInterface
       puts "\n"
       puts "\n"
       puts "------------------------------------------------------------"
-      puts recipe.title
+      puts recipe.title.upcase
       puts "------------------------------------------------------------"
       puts "Ingredients:"
       recipe.ingredients.map {|ingredient| puts ingredient.name}
       puts "------------------------------------------------------------"
       puts "\n"
+      puts "Directions:"
       puts recipe.directions
       puts "------------------------------------------------------------"
+      puts "\n"
+      puts "Categories:"
+      puts "->#{recipe.category}<-"
       puts "============================================================"
       break if satisfied == true || recipes.length == 0
     end
@@ -76,7 +99,7 @@ class CommandLineInterface
     puts "Are you happy with your recipe selection? Type yes or no."
     selection = gets.chomp
     if selection == 'yes'
-      puts "Enjoy your meal! Thanks for using What's Cooking?!"
+      puts "Enjoy your meal! Thanks for using What's Cooking!"
       true
     else
       false
@@ -84,7 +107,7 @@ class CommandLineInterface
   end
 
   def game_over
-    puts "Okay! No more ...¯|_(ツ)_/¯"
+    puts "Okay! That's it! ...¯|_(ツ)_/¯"
   end
 
 end

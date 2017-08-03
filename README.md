@@ -1,32 +1,13 @@
-# Module One Final Project Guidelines
+What's Cooking?
+An app by Yamini Kumawat and Matt Thorry
 
-Congratulations, you're at the end of module one! You've worked crazy hard to get here and have learned a ton.
+Purpose:
+The purpose of this app is to help people find recipes that meet their specific wants and needs. In the mood to make Chinese but only have onions on hand? Our app can help you find the *perfect* recipe.
 
-For your final project, we'll be building a Command Line database application.
+Directions:
+1. Users first input a specific preference they have. This preference can be based on allergies (Gluten or Peanut Free), meal time (breakfast, lunch, dinner) or even special occasion (birthday, Christmas).
+2. After inputting their preference, users are prompted to enter an ingredient they would like to use. With our database of over 1000 recipes and 10,000 ingredients, users are likely able to find what they want!
+3. If a user has no preference for food or ingredients, they can type "Random" and will receive five unique recipes from the database.
+4. If a user inputs something that is not in the database, they will be prompted to enter a different preference or ingredient.
 
-## Project Requirements
-
-### Option One - Data Analytics Project 
-
-1. Access a Sqlite3 Database using ActiveRecord. 
-2. You should have at minimum three models including one join model. This means you must have a many-to-many relationship.
-3. You should seed your database using data that you collect either from a CSV, a website by scraping, or an API.
-4. Your models should have methods that answer interesting questions about the data. For example, if you've collected info about movie reviews, what is the most popular movie? What movie has the most reviews?
-5. You should provide a CLI to display the return values of your interesting methods.  
-6. Use good OO design patterns. You should have separate classes for your models and CLI interface. 
-
-### Option Two - Command Line CRUD App
-
-1. Access a Sqlite3 Database using ActiveRecord. 
-2. You should have a minimum of three models. 
-3. You should build out a CLI to give your user full CRUD ability for at least one of your resources. For example, build out a command line To-Do list. A user should be able to create a new to-do, see all todos, update a todo item, and delete a todo. Todos can be grouped into categories, so that a to-do has many categories and categories have many to-dos. 
-4. Use good OO design patterns. You should have separate models for your runner and CLI interface.
- 
-## Instructions
-
-1. Fork and clone this repository. 
-2. Build your application. Make sure to commit early and commit often. Commit messages should be meaningful (clearly describe what you're doing in the commit) and accurate (there should be nothing in the commit that doesn't match the description in the commit message). Good rule of thumb is to commit every 3-7 mins of actual coding time. Most of your commits should have under 15 lines of code and a 2 line commit is perfectly acceptable.
-3. Make sure to create a good README.md with a short description, install instructions, a contributors guide and a link to the license for your code.
-4. Make sure your project checks off each of the above requirements.
-5. Prepare a video demo (narration helps!) describing how a user would interact with your working project.
-6. *OPTIONAL, BUT RECOMMENDED*: Write a blog post about the project and process.
+Bon Appétit!
